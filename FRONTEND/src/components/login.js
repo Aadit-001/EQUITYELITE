@@ -8,7 +8,7 @@ export function Login({ setuserName, setIsLoggedIn }) {
 
 //************************************************************************************ */
 const loginwithgoogle = ()=> {
-  window.open("http://localhost:3000/auth/google/callback","_self");
+  window.open("https://equityelite.onrender.com/auth/google/callback","_self");
 }
 
 const [userdata,setuserdata] = useState({});
@@ -17,7 +17,7 @@ const navigate = useNavigate();
 
     const getUser = async()=>{
         try {
-            const res = await axios.get("http://localhost:3000/login/success",{withCredentials:true});
+            const res = await axios.get("https://equityelite.onrender.com/login/success",{withCredentials:true});
             console.log(res);
             setuserdata(res.data.user);
             setIsLoggedIn(true);
@@ -48,7 +48,7 @@ const navigate = useNavigate();
   const funcTocallAfterSubmit = async (e) => {
     e.preventDefault();
     try {
-      const result = await axios.post("http://localhost:3000/login", { email, password });
+      const result = await axios.post("https://equityelite.onrender.com/login", { email, password });
 
       // Ensure token is stored in cookies
       setuserName(result.data.data.username);

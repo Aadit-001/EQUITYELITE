@@ -9,7 +9,7 @@ function Learn({setIsLoggedIn}) {
 
     const getUser = async()=>{
         try {
-            const res = await axios.get("http://localhost:3000/login/success",{withCredentials:true});
+            const res = await axios.get("https://equityelite.onrender.com/login/success",{withCredentials:true});
             console.log(res);
             setuserdata(res.data.user);
             setIsLoggedIn(true);
