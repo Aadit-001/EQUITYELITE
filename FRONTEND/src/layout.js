@@ -39,7 +39,6 @@ export function Layout() {
                 <Route path='login' element={<Login setuserName={setuserName} setIsLoggedIn={setIsLoggedIn} />} />
                 <Route path='signup' element={<Signup />} />
                 <Route path='profile' element={<Profile  setIsLoggedIn={setIsLoggedIn}/>} />
-                    {/* <Route path='logout' element={<Logout />} /> */}
             </Route>
         </Routes>
     );

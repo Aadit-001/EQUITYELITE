@@ -1,13 +1,15 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState,useContext } from 'react';
 import axios from 'axios';
 import {useNavigate, Link} from 'react-router-dom'
+// import GlobalContext from '../GlobalContext';
 
 export function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const navigate = useNavigate();
+  // const [globalVariable,setGlobalVariable] = useContext(GlobalContext);
 
   const newemailValue = (e) => {
     setEmail(e.target.value);
@@ -24,7 +26,7 @@ export function Signup() {
   // connecting frontend to backend
   const funcTocallAfterSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:3000/signup",{email,password,username})   //idhere server jis port ya url pe chal raha hai wo likhna hai
+    axios.post(`/signup`,{email,password,username})   //idhere server jis port ya url pe chal raha hai wo likhna hai
     .then(result => {console.log(result)
       navigate('/login')
     })

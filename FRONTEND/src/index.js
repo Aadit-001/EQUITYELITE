@@ -5,6 +5,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Layout } from './layout';
+// import { GlobalProvider } from './GlobalContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -27,10 +28,12 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   
+      // <GlobalProvider>
   <React.StrictMode>
     <Router>
-      <Layout />
+        <Layout />
     </Router>
   </React.StrictMode>
+      // </GlobalProvider>
 );
 reportWebVitals();

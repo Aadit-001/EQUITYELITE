@@ -1,8 +1,9 @@
 import React from 'react'
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useContext } from 'react';
 import StocksCard from '../components/StocksCard';
 import StocksCard2 from '../components/StocksCard2';
+// import GlobalContext from '../GlobalContext';
 // import { WebSocketProvider } from '../webSocket/WebSocketContext.js';
 // import StockData from '../components/StockData';
 // import AnotherComponent from '../components/AnotherComponent';
@@ -58,6 +59,7 @@ import StocksCard2 from '../components/StocksCard2';
 
 function Stocks({ setIsLoggedIn }) {
     const [stockData, setStockData] = useState({});
+    // const [globalVariable,setGlobalVariable] = useContext(GlobalContext);
 
     // const [userdata, setuserdata] = useState({});
     // const [stocksData,setstocksData] = useState([]);
@@ -65,7 +67,7 @@ function Stocks({ setIsLoggedIn }) {
 
     const getUser = async () => {
         try {
-            const res = await axios.get("http://localhost:3000/login/success", { withCredentials: true });
+            const res = await axios.get(`/login/success`, { withCredentials: true });
             console.log(res);
             // setuserdata(res.data.user);
             setIsLoggedIn(true);
@@ -121,7 +123,7 @@ function Stocks({ setIsLoggedIn }) {
     useEffect(() => {
         const fetchStockData = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/stocks', { withCredentials: true });
+                const response = await axios.get(`/stocks`, { withCredentials: true });
                 // setStocksData(response.data.data);
                 setStocksData(response.data.data.stockData); 
                 setUsMajorData(response.data.data.usMajorData); 

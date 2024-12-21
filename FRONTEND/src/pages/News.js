@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import axios from "axios";
 import { NewsCard } from "../components/NewsCard.js";
 import LodingPage from "./LodingPage.js";
 // import { useState ,useEffect } from "react";
+// import GlobalContext from "../GlobalContext.js";
 
 export default function News({setIsLoggedIn}) {
   axios.defaults.withCredentials = true; 
   const [news, setNews] = useState([]);
+  // const [globalVariable,setGlobalVariable] = useContext(GlobalContext);
 
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/news", {
+        const response = await axios.get(`/news`, {
           withCredentials: true, // Include credentials if needed
         });
         setNews(response.data.slice(0, 101)); // Correctly accessing response data
@@ -32,7 +34,7 @@ export default function News({setIsLoggedIn}) {
 
     const getUser = async()=>{
         try {
-            const res = await axios.get("http://localhost:3000/login/success",{withCredentials:true});
+            const res = await axios.get(`/login/success`,{withCredentials:true});
             console.log(res);
             // setuserdata(res.data.user);
             setIsLoggedIn(true);

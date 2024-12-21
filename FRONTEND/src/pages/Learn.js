@@ -1,17 +1,19 @@
 import React from 'react'
 import axios from 'axios';
-import { useState,useEffect } from 'react';
+import { useState,useEffect,useContext } from 'react';
 import { Link } from 'react-router-dom';
+// import GlobalContext from '../GlobalContext';
 
 function Learn({setIsLoggedIn}) {
   axios.defaults.withCredentials = true; 
+  // const [globalVariable,setGlobalVariable] = useContext(GlobalContext);
   // const [userdata,setuserdata] = useState({});
     //isme agar user data mila tabhi hi user loggedin hai warna nhi hai
 
     useEffect(()=> {
       const getUser = async()=>{
         try {
-            const res = await axios.get("http://localhost:3000/login/success",{withCredentials:true});
+            const res = await axios.get(`/login/success`,{withCredentials:true});
             console.log(res);
             // setuserdata(res.data.user);
             setIsLoggedIn(true);

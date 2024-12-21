@@ -1,9 +1,10 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState, useEffect ,useContext} from 'react';
 import axios from 'axios';
 // import PostForm from '../components/postForm';
 import PostForm from '../components/postForm'
 import StocksPage from '../components/StocksPage'
+// import GlobalContext from '../GlobalContext';
 // import New from '../components/New';
 // import {useEffect } from 'react'
 // import { useNavigate } from 'react-router-dom';
@@ -14,13 +15,15 @@ export function Home({ setIsLoggedIn, setuserName }) {
   const [posts, setPosts] = useState([]);
   //isme agar user data mila tabhi hi user loggedin hai warna nhi hai
 
+  // const globalVariable = useContext(GlobalContext);
+
 
   
   
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/login/success", { withCredentials: true });
+        const res = await axios.get(`http://localhost:3000/login/success`, { withCredentials: true });
         console.log(res);
         // setuserdata(res.data.user);
         setIsLoggedIn(true);
@@ -42,7 +45,7 @@ export function Home({ setIsLoggedIn, setuserName }) {
   const fetchPosts = async () => {
     try {
       // const token = Cookies.get('accessToken'); // Retrieve token from cookies
-      const response = await axios.get('http://localhost:3000/home', {
+      const response = await axios.get(`http://localhost:3000/home`, {
         withCredentials: true,
       });
 

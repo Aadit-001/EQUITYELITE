@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState ,useContext } from 'react';
 import axios from 'axios';
+// import GlobalContext from '../GlobalContext';
 
 const PostForm = ({setPostOpen}) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [file, setFile] = useState(null);
   const [filePreview, setFilePreview] = useState();
+  // const [globalVariable,setGlobalVariable] = useContext(GlobalContext);
 
 
   const handleFileChange = (event) => {
@@ -24,7 +26,7 @@ const PostForm = ({setPostOpen}) => {
   }
 
     try {
-      const response = await axios.post('http://localhost:3000/uploadPost', formData, {
+      const response = await axios.post(`/uploadPost`, formData, {
       });
       console.log('Post uploaded:', response.data);
       setPostOpen(false);

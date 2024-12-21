@@ -3,11 +3,13 @@ import React from 'react';
 // import { Link} from 'react-router-dom';
 import useLogout from '../Hooks/useLogout';
 import { useNavigate } from 'react-router-dom';
-import { useState,useEffect } from 'react';
+import { useState,useEffect,useContext } from 'react';
+// import GlobalContext from '../GlobalContext';
 
 
 function Profile({setIsLoggedIn}) {
   axios.defaults.withCredentials = true; 
+  // const [globalVariable,setGlobalVariable] = useContext(GlobalContext);
 
   
   const { logout, isuserlogout } = useLogout(); 
@@ -29,7 +31,7 @@ function Profile({setIsLoggedIn}) {
     const fetchUserData = async () => {
       try {
         // const token = Cookies.get('accessToken'); // Retrieve token from cookies
-        const response = await axios.get('http://localhost:3000/profile', {
+        const response = await axios.get(`/profile`, {
           withCredentials: true,
         });
 

@@ -1,14 +1,15 @@
 import axios from "axios";
-import { useState ,useEffect} from "react";
+import { useState , useContext} from "react";
 import { Link, useNavigate } from "react-router-dom"
+// import GlobalContext from "../GlobalContext";
 
 
 export function Login({ setuserName, setIsLoggedIn }) {
   axios.defaults.withCredentials = true; // kabhi bhi req karne time ye karna jaruri hai tabhi hi req token aur acces token milega
-
+  // const { globalVariable, setGlobalVariable } = useContext(GlobalContext);
 //************************************************************************************ */
 const loginwithgoogle = ()=> {
-  window.open("http://localhost:3000/auth/google/callback","_self");
+  window.open(`/auth/google/callback`,"_self");
   getUser();
 }
 
@@ -19,7 +20,7 @@ const navigate = useNavigate();
     // useEffect(()=> {
     const getUser = async()=>{
         try {
-            const res = await axios.get("http://localhost:3000/login/success",{withCredentials:true});
+            const res = await axios.get(`/login/success`,{withCredentials:true});
             console.log(res);
 
             // document.cookie = `accessToken=${res.data.accessToken}; path=/;`; 
@@ -54,7 +55,7 @@ const navigate = useNavigate();
   const funcTocallAfterSubmit = async (e) => {
     e.preventDefault();
     try {
-      const result = await axios.post("http://localhost:3000/login", { email, password });
+      const result = await axios.post(`/login`, { email, password });
 
       // Ensure token is stored in cookies
       setuserName(result.data.data.username);

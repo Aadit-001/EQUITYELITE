@@ -1,14 +1,16 @@
 // import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState ,useContext} from 'react';
+// import GlobalContext from '../GlobalContext';
 
 const useLogout = () => {
   // const navigate = useNavigate();
   const [isuserlogout,setisuserlogout] = useState(false);
+  // const [globalVariable,setGlobalVariable] = useContext(GlobalContext);
 
   const logout = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/logout', {}, { withCredentials: true });
+      const res = await axios.get(`/logout`, {}, { withCredentials: true });
       console.log("logout succesfull");
       if(res.data.userLogout){
         setisuserlogout(true);
