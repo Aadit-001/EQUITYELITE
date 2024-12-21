@@ -124,8 +124,10 @@ passport.deserializeUser((user,done) => {
 
 app.get("/auth/google",passport.authenticate("google",{scope:["profile","email"]}));
 app.get("/auth/google/callback",passport.authenticate("google",{
-    successRedirect: "https://equityelite.vercel.app/home",
-    failureRedirect: "https://equityelite.vercel.app"
+    // successRedirect: "https://equityelite.vercel.app/home",
+    // failureRedirect: "https://equityelite.vercel.app"
+    successRedirect: "http://localhost:8000/home",
+    failureRedirect: "http://localhost:8000"
 }));
 
 
@@ -144,8 +146,8 @@ app.get("/login/success",async(req,res) => {
         console.log(req.user.accessToken);
         res
         .status(200)
-        .cookie("accessToken",req.user.accessToken ,{ httpOnly: true, secure: false, sameSite: 'strict', path: '/' })  // google login karne ke baad refresh token toh save ho raha hai lekin access token save nhi ho raha 
-        .cookie("refreshToken", req.user.refreshToken, { httpOnly: true, secure: false, sameSite: 'strict', path: '/' })
+        .cookie("accessToken",req.user.accessToken ,{ httpOnly: true, secure: true, sameSite: 'strict', path: '/' })  // google login karne ke baad refresh token toh save ho raha hai lekin access token save nhi ho raha 
+        .cookie("refreshToken", req.user.refreshToken, { httpOnly: true, secure: true, sameSite: 'strict', path: '/' })
         .json({message:"user login",user:req.user,accessToken: req.user.accessToken,refreshToken: req.user.refreshToken}) //yaha pe ye frontend ko send hua hai, abb frontend apne documnet.cookie make ye dono tokens ko store kar lenge after login
     }else{
         res.status(400).json({message:"Not Authorised"})

@@ -142,7 +142,7 @@ const loginUser = asyncHandler(async(req,res) => {
    //abb hame , access token bhejne ke liye hame cookie bhejna padta haui uske liye ye karna hai
    const options = {
       httpOnly : true,    //ye code likhne se frontend pe cookie modify nhi hoga ,warna koi bhi isko yse kar sakta hau
-      secure : false, // Change to true if using HTTPS (for production) and false for development 
+/**/  secure : true, // Change to true if using HTTPS (for production) and false for development 
       sameSite: 'strict', // ye strict kiya tabhi hi cookies dikha apne console mai ******************************** ye karne se browser ka cookies refresh karne pe bhi hatt nhi raha 
       path: '/'       // applicable for hole site
    }
