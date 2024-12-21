@@ -26,7 +26,7 @@ export function Signup() {
   // connecting frontend to backend
   const funcTocallAfterSubmit = (e) => {
     e.preventDefault();
-    axios.post(`/signup`,{email,password,username})   //idhere server jis port ya url pe chal raha hai wo likhna hai
+    axios.post(`https://equityelite.onrender.com/signup`,{email,password,username})   //idhere server jis port ya url pe chal raha hai wo likhna hai
     .then(result => {console.log(result)
       navigate('/login')
     })

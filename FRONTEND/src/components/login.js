@@ -9,7 +9,7 @@ export function Login({ setuserName, setIsLoggedIn }) {
   // const { globalVariable, setGlobalVariable } = useContext(GlobalContext);
 //************************************************************************************ */
 const loginwithgoogle = ()=> {
-  window.open(`/auth/google/callback`,"_self");
+  window.open(`https://equityelite.onrender.com/auth/google/callback`,"_self");
   getUser();
 }
 
@@ -20,7 +20,7 @@ const navigate = useNavigate();
     // useEffect(()=> {
     const getUser = async()=>{
         try {
-            const res = await axios.get(`/login/success`,{withCredentials:true});
+            const res = await axios.get(`https://equityelite.onrender.com/login/success`,{withCredentials:true});
             console.log(res);
 
             // document.cookie = `accessToken=${res.data.accessToken}; path=/;`; 
@@ -55,7 +55,7 @@ const navigate = useNavigate();
   const funcTocallAfterSubmit = async (e) => {
     e.preventDefault();
     try {
-      const result = await axios.post(`/login`, { email, password });
+      const result = await axios.post(`https://equityelite.onrender.com/login`, { email, password });
 
       // Ensure token is stored in cookies
       setuserName(result.data.data.username);
