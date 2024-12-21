@@ -1,6 +1,6 @@
 import { Link, NavLink } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import axios from 'axios';
+// import axios from 'axios';
 
 export function Navbar({ name, isLoggedIn }) {
     // name ? const initial = name.charAt(0) : "";

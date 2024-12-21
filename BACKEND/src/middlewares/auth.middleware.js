@@ -15,8 +15,8 @@ import { User } from "../models/user.model.js";
 
 export const verifyJWT = asyncHandler(async (req, _, next) => {
   try {
-    const x = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzJjY2ZmZWYzZTgyNDNjY2ZhNzhiZjMiLCJlbWFpbCI6Im1ha2V5b3V0aGluazAxQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiTWFrZVlvdVRoaW5rIiwiaWF0IjoxNzMxMjMwNzQyLCJleHAiOjE3MzEzMTcxNDJ9.3umRKfOzOoyfqRrI5R5gOBF4rorhmuAKb0o8-PY2auw';
-    const token = req.cookies?.accessToken ? req.cookies?.accessToken: x ;
+    // const x = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzJjY2ZmZWYzZTgyNDNjY2ZhNzhiZjMiLCJlbWFpbCI6Im1ha2V5b3V0aGluazAxQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiTWFrZVlvdVRoaW5rIiwiaWF0IjoxNzMxMjMwNzQyLCJleHAiOjE3MzEzMTcxNDJ9.3umRKfOzOoyfqRrI5R5gOBF4rorhmuAKb0o8-PY2auw';
+    const token = req.cookies?.accessToken ;
     console.log("Token received:", token); // Log the token received
 
     if (!token) {

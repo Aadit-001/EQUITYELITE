@@ -5,12 +5,13 @@ import LodingPage from "./LodingPage.js";
 // import { useState ,useEffect } from "react";
 
 export default function News({setIsLoggedIn}) {
+  axios.defaults.withCredentials = true; 
   const [news, setNews] = useState([]);
 
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await axios.get("https://equityelite.onrender.com/news", {
+        const response = await axios.get("http://localhost:3000/news", {
           withCredentials: true, // Include credentials if needed
         });
         setNews(response.data.slice(0, 101)); // Correctly accessing response data
@@ -26,14 +27,14 @@ export default function News({setIsLoggedIn}) {
   // Add empty dependency array to avoid infinite loop
 
   //
-  const [userdata,setuserdata] = useState({});
+  // const [userdata,setuserdata] = useState({});
     //isme agar user data mila tabhi hi user loggedin hai warna nhi hai
 
     const getUser = async()=>{
         try {
-            const res = await axios.get("https://equityelite.onrender.com/login/success",{withCredentials:true});
+            const res = await axios.get("http://localhost:3000/login/success",{withCredentials:true});
             console.log(res);
-            setuserdata(res.data.user);
+            // setuserdata(res.data.user);
             setIsLoggedIn(true);
         } catch (error) {
             console.log(error)
@@ -60,7 +61,7 @@ export default function News({setIsLoggedIn}) {
         ) : (
           <LodingPage />
         )}
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }    

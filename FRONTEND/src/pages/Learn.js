@@ -4,21 +4,21 @@ import { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function Learn({setIsLoggedIn}) {
-  const [userdata,setuserdata] = useState({});
+  axios.defaults.withCredentials = true; 
+  // const [userdata,setuserdata] = useState({});
     //isme agar user data mila tabhi hi user loggedin hai warna nhi hai
 
-    const getUser = async()=>{
+    useEffect(()=> {
+      const getUser = async()=>{
         try {
-            const res = await axios.get("https://equityelite.onrender.com/login/success",{withCredentials:true});
+            const res = await axios.get("http://localhost:3000/login/success",{withCredentials:true});
             console.log(res);
-            setuserdata(res.data.user);
+            // setuserdata(res.data.user);
             setIsLoggedIn(true);
         } catch (error) {
             console.log(error)
         }
     }
-
-    useEffect(()=> {
         getUser();
     },[])
 

@@ -8,29 +8,35 @@ export function Login({ setuserName, setIsLoggedIn }) {
 
 //************************************************************************************ */
 const loginwithgoogle = ()=> {
-  window.open("https://equityelite.onrender.com/auth/google/callback","_self");
+  window.open("http://localhost:3000/auth/google/callback","_self");
+  getUser();
 }
 
-const [userdata,setuserdata] = useState({});
+// const [userdata,setuserdata] = useState({});
 const navigate = useNavigate();
     //isme agar user data mila tabhi hi user loggedin hai warna nhi hai
 
+    // useEffect(()=> {
     const getUser = async()=>{
         try {
-            const res = await axios.get("https://equityelite.onrender.com/login/success",{withCredentials:true});
+            const res = await axios.get("http://localhost:3000/login/success",{withCredentials:true});
             console.log(res);
-            setuserdata(res.data.user);
+
+            // document.cookie = `accessToken=${res.data.accessToken}; path=/;`; 
+            // document.cookie = `refreshToken=${res.data.refreshToken}; path=/;`;
+
+            // setuserdata(res.data.user);
+            console.log(res.data.accessToken);
             setIsLoggedIn(true);
-            navigate("/home");
+            // navigate("/home");
 
         } catch (error) {
             console.log(error)
         }
     }
 
-    useEffect(()=> {
-        getUser();
-    },[])
+        // getUser();
+    // },[navigate,setIsLoggedIn])
 
 //************************************************************************************ */
   const [email, setEmail] = useState('');
@@ -48,7 +54,7 @@ const navigate = useNavigate();
   const funcTocallAfterSubmit = async (e) => {
     e.preventDefault();
     try {
-      const result = await axios.post("https://equityelite.onrender.com/login", { email, password });
+      const result = await axios.post("http://localhost:3000/login", { email, password });
 
       // Ensure token is stored in cookies
       setuserName(result.data.data.username);
@@ -92,7 +98,7 @@ const navigate = useNavigate();
         <div className="h-10 pt-5 flex justify-center text-xl mb-2">OR</div>
         <hr className="border-1 border-black" />
         <div className="flex justify-center h-20 ">
-          <button className="bg-signinwithgoogle h-12 mt-2 bg-contain w-60 bg-center bg-no-repeat" onClick={loginwithgoogle}></button>
+          <button className="bg-signinwithgoogle h-12 mt-2 w-60 bg-contain bg-center bg-no-repeat" onClick={loginwithgoogle}></button>
         </div>
       </div>
     </div>

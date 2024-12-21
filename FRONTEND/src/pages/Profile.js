@@ -8,6 +8,8 @@ import { useState,useEffect } from 'react';
 
 function Profile({setIsLoggedIn}) {
   axios.defaults.withCredentials = true; 
+
+  
   const { logout, isuserlogout } = useLogout(); 
   const navigate = useNavigate(); 
   React.useEffect(() => { 
@@ -27,7 +29,7 @@ function Profile({setIsLoggedIn}) {
     const fetchUserData = async () => {
       try {
         // const token = Cookies.get('accessToken'); // Retrieve token from cookies
-        const response = await axios.get('https://equityelite.onrender.com/profile', {
+        const response = await axios.get('http://localhost:3000/profile', {
           withCredentials: true,
         });
 
@@ -101,6 +103,3 @@ export default Profile;
 //     </div>
 //   );
 // };
-
-
-

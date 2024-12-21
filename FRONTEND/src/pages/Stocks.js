@@ -59,15 +59,15 @@ import StocksCard2 from '../components/StocksCard2';
 function Stocks({ setIsLoggedIn }) {
     const [stockData, setStockData] = useState({});
 
-    const [userdata, setuserdata] = useState({});
+    // const [userdata, setuserdata] = useState({});
     // const [stocksData,setstocksData] = useState([]);
     //isme agar user data mila tabhi hi user loggedin hai warna nhi hai
 
     const getUser = async () => {
         try {
-            const res = await axios.get("https://equityelite.onrender.com/login/success", { withCredentials: true });
+            const res = await axios.get("http://localhost:3000/login/success", { withCredentials: true });
             console.log(res);
-            setuserdata(res.data.user);
+            // setuserdata(res.data.user);
             setIsLoggedIn(true);
         } catch (error) {
             console.log(error)
@@ -121,7 +121,7 @@ function Stocks({ setIsLoggedIn }) {
     useEffect(() => {
         const fetchStockData = async () => {
             try {
-                const response = await axios.get('https://equityelite.onrender.com/stocks', { withCredentials: true });
+                const response = await axios.get('http://localhost:3000/stocks', { withCredentials: true });
                 // setStocksData(response.data.data);
                 setStocksData(response.data.data.stockData); 
                 setUsMajorData(response.data.data.usMajorData); 

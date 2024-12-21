@@ -125,8 +125,9 @@ passport.deserializeUser((user,done) => {
 app.get("/auth/google",passport.authenticate("google",{scope:["profile","email"]}));
 app.get("/auth/google/callback",passport.authenticate("google",{
     successRedirect: "http://localhost:3001/home",
-    failureRedirect: "http://localhost:3001/login"
-}))
+    failureRedirect: "http://localhost:3001"
+}));
+
 
 
 
@@ -140,12 +141,12 @@ app.get("/login/success",async(req,res) => {
         // const user = await User.findOne({req.user.email});
         // const {accessToken, refreshToken} = await generateAccessTokenAndRefreshTokens(user._id);
 
+        console.log(req.user.accessToken);
         res
         .status(200)
         .cookie("accessToken",req.user.accessToken ,{ httpOnly: true, secure: false, sameSite: 'strict', path: '/' })  // google login karne ke baad refresh token toh save ho raha hai lekin access token save nhi ho raha 
         .cookie("refreshToken", req.user.refreshToken, { httpOnly: true, secure: false, sameSite: 'strict', path: '/' })
-        .json({message:"user login",user:req.user,accesstoken: req.user.accessToken,  //yaha pe ye frontend ko send hua hai, abb frontend apne documnet.cookie make ye dono tokens ko store kar lenge after login
-            refreshtoken: req.user.refreshToken})
+        .json({message:"user login",user:req.user,accessToken: req.user.accessToken,refreshToken: req.user.refreshToken}) //yaha pe ye frontend ko send hua hai, abb frontend apne documnet.cookie make ye dono tokens ko store kar lenge after login
     }else{
         res.status(400).json({message:"Not Authorised"})
     }
@@ -162,6 +163,5 @@ app.get("/logout",(req,res,next)=> {
 //*********************************************************** */
 //routes 
 app.use("", userRouter)  //ye bass initail route hai , matlab ye ki jab iss route pe aa jayenge tab pura cotrol "userRouter ke file ke pass aa jayega kyu ki wo user ke related sara kaam hai waha, jaise login , register etc"
-
 
 export default app

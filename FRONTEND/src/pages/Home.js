@@ -4,31 +4,45 @@ import axios from 'axios';
 // import PostForm from '../components/postForm';
 import PostForm from '../components/postForm'
 import StocksPage from '../components/StocksPage'
-import New from '../components/New';
+// import New from '../components/New';
 // import {useEffect } from 'react'
 // import { useNavigate } from 'react-router-dom';
 
 export function Home({ setIsLoggedIn, setuserName }) {
-  const [userdata, setuserdata] = useState({});
+  axios.defaults.withCredentials = true; ////// ye kiya tabhi wo post kar paya mai ,google se login hone ke baad, kyu ki ye karne ke baad hi cookie , token rew.user mai aata hai
+  // const [userdata, setuserdata] = useState({});
   const [posts, setPosts] = useState([]);
   //isme agar user data mila tabhi hi user loggedin hai warna nhi hai
 
-  const getUser = async () => {
-    try {
-      const res = await axios.get("https://equityelite.onrender.com/login/success", { withCredentials: true });
-      console.log(res);
-      setuserdata(res.data.user);
-      setIsLoggedIn(true);
-      setuserName(res.data.user.username);
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
+  
+  
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const res = await axios.get("http://localhost:3000/login/success", { withCredentials: true });
+        console.log(res);
+        // setuserdata(res.data.user);
+        setIsLoggedIn(true);
+        setuserName(res.data.user.username);
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getUser();
+  },[setIsLoggedIn,setuserName])
+  
+  const [postOpen, setPostOpen] = useState(false);
+  
+  const PostTabStatus = () => {
+    setPostOpen(!postOpen);
+  }
+  
+  useEffect(() => {
   const fetchPosts = async () => {
     try {
       // const token = Cookies.get('accessToken'); // Retrieve token from cookies
-      const response = await axios.get('https://equityelite.onrender.com/home', {
+      const response = await axios.get('http://localhost:3000/home', {
         withCredentials: true,
       });
 
@@ -38,22 +52,9 @@ export function Home({ setIsLoggedIn, setuserName }) {
       console.error('Error fetching posts:', error);
     }
   };
-
-
-  useEffect(() => {
-    getUser();
-  }, [])
-
-  const [postOpen, setPostOpen] = useState(false);
-
-  const PostTabStatus = () => {
-    setPostOpen(!postOpen);
-  }
-
-  useEffect(() => {
     fetchPosts();
   },[postOpen])
-
+  
   // const navigate = useNavigate();
   // useEffect(() => {
   //   const checkAuth = async () => {
@@ -72,7 +73,7 @@ export function Home({ setIsLoggedIn, setuserName }) {
   //   //   const refreshToken = document.cookie.split('; ').find(row => row.startsWith('refreshToken='));
   //   //   if (refreshToken) {
   //   //     const response = await axios.post('http://localhost:3000/refresh-token', {
-  //   //       token: refreshToken.split('=')[1]
+  //   //      - token: refreshToken.split('=')[1]
   //   //     });
   //   //     document.cookie = `accessToken=${response.data.accessToken}; path=/;`;
   //   //     setIsLoggedIn(true);
@@ -109,5 +110,3 @@ export function Home({ setIsLoggedIn, setuserName }) {
     </>
   )
 }
-
-

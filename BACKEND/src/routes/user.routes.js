@@ -8,16 +8,16 @@ import { createPost,getPost } from "../controllers/post.controller.js"
 const router = Router()
 
 router.route("/signup").post(
-    upload.fields([
-        {
-            name: "avatar",
-            maxCount : 1
-        },
-        {
-            name: "coverImage",
-            maxCount : 1
-        }
-    ]),
+    // upload.fields([
+    //     {
+    //         name: "avatar",
+    //         maxCount : 1
+    //     },
+    //     {
+    //         name: "coverImage",
+    //         maxCount : 1
+    //     }
+    // ]),
     registerUser
 ) 
 
@@ -50,5 +50,5 @@ router.route("/profile").get(verifyJWT,getUserPosts)
 
 // router.route("/logout").post(verifyJWT,logoutUser)
 
-//yaha pe verifyJWT is a middle ware which is used here
+//yaha pe verifyJWT is a middle ware which is us
 export default router

@@ -24,7 +24,7 @@ const PostForm = ({setPostOpen}) => {
   }
 
     try {
-      const response = await axios.post('https://equityelite.onrender.com/uploadPost', formData, {
+      const response = await axios.post('http://localhost:3000/uploadPost', formData, {
       });
       console.log('Post uploaded:', response.data);
       setPostOpen(false);
@@ -60,7 +60,7 @@ const PostForm = ({setPostOpen}) => {
           />
           {filePreview && ( 
             <div className="w-full flex justify-center"> 
-              <img src={filePreview} alt="Image preview" className=" h-44 object-cover mt-2 rounded" /> 
+              <img src={filePreview} alt="preview" className=" h-44 object-cover mt-2 rounded" /> 
             </div> 
           )}
           <button 
@@ -77,8 +77,3 @@ const PostForm = ({setPostOpen}) => {
 };
 
 export default PostForm;
-
-
-
-
-
