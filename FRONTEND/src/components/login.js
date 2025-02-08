@@ -5,11 +5,12 @@ import { Link, useNavigate } from "react-router-dom"
 
 
 export function Login({ setuserName, setIsLoggedIn }) {
-  axios.defaults.withCredentials = true; // kabhi bhi req karne time ye karna jaruri hai tabhi hi req token aur acces token milega
-  // const { globalVariable, setGlobalVariable } = useContext(GlobalContext);
+  axios.defaults.withCredentials = true; 
+  axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080';
+
 //************************************************************************************ */
 const loginwithgoogle = ()=> {
-  window.open(`https://equityelite.onrender.com/auth/google/callback`,"_self");
+  window.open(`http://localhost:8080/auth/google/callback`,"_self");
   getUser();
 }
 
@@ -20,7 +21,7 @@ const navigate = useNavigate();
     // useEffect(()=> {
     const getUser = async()=>{
         try {
-            const res = await axios.get(`https://equityelite.onrender.com/login/success`,{withCredentials:true});
+            const res = await axios.get(`http://localhost:8080/login/success`,{withCredentials:true});
             console.log(res);
 
             // document.cookie = `accessToken=${res.data.accessToken}; path=/;`; 
@@ -28,6 +29,7 @@ const navigate = useNavigate();
 
             // setuserdata(res.data.user);
             console.log(res.data.accessToken);
+            localStorage.setItem("accessToken",res.data.accessToken);
             setIsLoggedIn(true);
             // navigate("/home");
 
@@ -55,15 +57,34 @@ const navigate = useNavigate();
   const funcTocallAfterSubmit = async (e) => {
     e.preventDefault();
     try {
-      const result = await axios.post(`https://equityelite.onrender.com/login`, { email, password });
+      const result = await axios.post(`/login`, { email, password }, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
 
-      // Ensure token is stored in cookies
-      setuserName(result.data.data.username);
-      setIsLoggedIn(result.data.message.isLoggedIn);
-      console.log(result.data.message.isLoggedIn);
-      result.data.message.isLoggedIn ? navigate('/home') : navigate('/');
+      // Extract user and tokens from response
+      const { user, accessToken, refreshToken } = result.data.data;
+
+      // Set tokens in localStorage (optional, but can be useful)
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+
+      // Set axios default headers for future requests
+      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      axios.defaults.headers.common['x-access-token'] = accessToken;
+
+      // Update login state
+      setuserName(user.username);
+      setIsLoggedIn(true);
+
+      // Navigate to home page
+      navigate('/home');
     } catch (err) {
-      console.log("Here is the error", err);
+      console.error("Login Error:", err);
+      // Handle login error (show message to user)
+      alert(err.response?.data?.message || "Login failed");
     }
   }
   return (

@@ -10,7 +10,7 @@ const useLogout = () => {
 
   const logout = async () => {
     try {
-      const res = await axios.get(`https://equityelite.onrender.com/logout`, {}, { withCredentials: true });
+      const res = await axios.get(`http://localhost:8080/logout`, {}, { withCredentials: true });
       console.log("logout succesfull");
       if(res.data.userLogout){
         setisuserlogout(true);

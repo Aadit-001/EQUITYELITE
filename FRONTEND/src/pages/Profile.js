@@ -31,7 +31,7 @@ function Profile({setIsLoggedIn}) {
     const fetchUserData = async () => {
       try {
         // const token = Cookies.get('accessToken'); // Retrieve token from cookies
-        const response = await axios.get(`https://equityelite.onrender.com/profile`, {
+        const response = await axios.get(`http://localhost:8080/profile`, {
           withCredentials: true,
         });
 

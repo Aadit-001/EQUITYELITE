@@ -15,21 +15,35 @@ import { User } from "../models/user.model.js";
 
 export const verifyJWT = asyncHandler(async (req, _, next) => {
   try {
-    // const x = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzJjY2ZmZWYzZTgyNDNjY2ZhNzhiZjMiLCJlbWFpbCI6Im1ha2V5b3V0aGluazAxQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiTWFrZVlvdVRoaW5rIiwiaWF0IjoxNzMxMjMwNzQyLCJleHAiOjE3MzEzMTcxNDJ9.3umRKfOzOoyfqRrI5R5gOBF4rorhmuAKb0o8-PY2auw';
-    const token = req.cookies?.accessToken ;
-    console.log("Token received:", token); // Log the token received
+    console.log("Full Request Headers:", JSON.stringify(req.headers, null, 2));
+    console.log("Full Cookies:", JSON.stringify(req.cookies, null, 2));
+    console.log("Authorization Header:", req.headers.authorization);
+
+    // Try multiple ways of getting the token
+    const cookieToken = req.cookies?.accessToken;
+    const headerToken = req.headers.authorization?.split(' ')[1];
+    const localStorageToken = req.headers['x-access-token'];
+
+    const token = cookieToken || headerToken || localStorageToken;
+
+    console.log("Token Sources:", {
+      cookieToken: !!cookieToken,
+      headerToken: !!headerToken,
+      localStorageToken: !!localStorageToken
+    });
 
     if (!token) {
-      console.log("No token found");
-      throw new ApiError(401, "Unauthorized Login");
+      console.log("No token found through any method");
+      throw new ApiError(401, "No access token provided");
     }
 
+    console.log("Token received:", token);
+
     const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    console.log("Decoded Token:", decodedToken); // Log the decoded token
+    console.log("Decoded Token:", decodedToken);
 
     const user = await User.findById(decodedToken?._id).select("-password -refreshToken");
-    console.log("User found:", user); // Log the user found
-
+    
     if (!user) {
       console.log("No user found with this token");
       throw new ApiError(401, "Invalid Access Token");
@@ -38,7 +52,18 @@ export const verifyJWT = asyncHandler(async (req, _, next) => {
     req.user = user;
     next();
   } catch (error) {
-    console.error("Error in verifyJWT middleware:", error); // Detailed logging
-    throw new ApiError(401, "Invalid access token");
+    console.error("Detailed Verification Error:", {
+      name: error.name,
+      message: error.message,
+      stack: error.stack
+    });
+    
+    if (error.name === 'JsonWebTokenError') {
+      throw new ApiError(401, "Invalid JWT Token");
+    } else if (error.name === 'TokenExpiredError') {
+      throw new ApiError(401, "Access Token Expired");
+    }
+    
+    throw new ApiError(401, error.message || "Authentication Failed");
   }
 });

@@ -110,59 +110,57 @@ const registerUser = asyncHandler(async (req,res) => {
 
 })
 
-const loginUser = asyncHandler(async(req,res) => {
-   //get user deatils form the frontend
-   const {email,password} = req.body;
+const loginUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
 
-   //validate ki user and password hai ki nhi
-   if(!(email || password)){
-      throw new ApiError(400,"Details are needed");
-   }
+  // Validate input
+  if (!email || !password) {
+    throw new ApiError(400, "Email and password are required");
+  }
 
-   //find the paassword from the database for the username
-   const user = await User.findOne({email});
-   console.log(user.password)
-   console.log(user.username)
+  // Find user
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new ApiError(404, "User not found");
+  }
 
-   //validate if the pawword is correct or not
-   const isPasswordValid = await user.isPasswordCorrect(password)
+  // Check password
+  const isPasswordValid = await user.isPasswordCorrect(password);
+  if (!isPasswordValid) {
+    throw new ApiError(401, "Invalid user credentials");
+  }
 
-   if(!isPasswordValid){
-      throw new ApiError(401,"fail")
-   }
+  // Generate tokens
+  const { accessToken, refreshToken } = await generateAccessTokenAndRefreshTokens(user._id);
 
-    //destructure
-   const {accessToken, refreshToken} = await generateAccessTokenAndRefreshTokens(user._id)
+  // Prepare user response without sensitive info
+  const loggedInUser = await User.findById(user._id).select("-password -refreshToken");
 
-   
-   //dekho abhi jo hai na abhi apne pass uppdated user ka data nhi hai kyu ki wo piche kiya gaya yhe toh abb updated data ke liye db ko wapis call karenge , lekin agar ye expensive hua toh nhi karenhge warna kar denge
-   const loggedInUser = await User.findById(user._id)
-   .select("-password -refreshToken")  //hamne ye use kiya hai taki hum ye dono chize frontend ko na bhheje
-   
-   //abb hame , access token bhejne ke liye hame cookie bhejna padta haui uske liye ye karna hai
-   const options = {
-      httpOnly : true,    //ye code likhne se frontend pe cookie modify nhi hoga ,warna koi bhi isko yse kar sakta hau
-/**/  secure : true, // Change to true if using HTTPS (for production) and false for development 
-      sameSite: 'strict', // ye strict kiya tabhi hi cookies dikha apne console mai ******************************** ye karne se browser ka cookies refresh karne pe bhi hatt nhi raha 
-      path: '/'       // applicable for hole site
-   }
+  // Cookie options
+  const cookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production', // Use secure in production
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  };
 
-
-
-   //ye kiya tabhi hi hum user ko bhej sake frontend ke pass then then usne phir sare chize user ki access ki db se jo bhi hamene frontend pe bheja hai
-   return res
-   .status(200)
-   .cookie("accessToken",accessToken,options)   //ye bass cookie mai store hua hai isme , 2 line baad wo send bhi hoga frontend ko
-   .cookie("refreshToken",refreshToken,options)  
-   .json(
-      new ApiResponse(200,loggedInUser,{
-         isLoggedIn : true,
-         accesstoken: accessToken,  //yaha pe ye frontend ko send hua hai, abb frontend apne documnet.cookie make ye dono tokens ko store kar lenge after login
-         refreshtoken: refreshToken
-      },"success")
-   )
-
-})
+  // Set tokens in cookies
+  return res
+    .status(200)
+    .cookie("accessToken", accessToken, cookieOptions)
+    .cookie("refreshToken", refreshToken, cookieOptions)
+    .json(
+      new ApiResponse(
+        200, 
+        {
+          user: loggedInUser,
+          accessToken,
+          refreshToken
+        },
+        "User logged in successfully"
+      )
+    );
+});
 
 //********************************************************************************* */
 
@@ -259,46 +257,7 @@ const getApiResponse = asyncHandler(async(req,res) => {
 // import axios from 'axios';
 // import ApiResponse from '../utils/ApiResponse.js';
 
-// const FINNHUB_API_TOKEN = 'csnj8upr01qqapaib3d0csnj8upr01qqapaib3dg';
-// const STOCK_SYMBOLS = ['AAPL', 'NVDA', 'MSFT', 'GOOGL'];
-
-// const getStockApiResponse = asyncHandler(async (req, res) => {
-//   try {
-//     const stockDataPromises = STOCK_SYMBOLS.map(async (symbol) => {
-//       const profileResponse = await axios.get(
-//         `https://finnhub.io/api/v1/stock/profile2?symbol=${symbol}&token=${FINNHUB_API_TOKEN}`
-//       );
-//       const metricResponse = await axios.get(
-//         `https://finnhub.io/api/v1/stock/metric?symbol=${symbol}&metric=all&token=${FINNHUB_API_TOKEN}`
-//       );
-//       const quoteResponse = await axios.get(
-//         `https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${FINNHUB_API_TOKEN}`
-//       );
-
-//       return {
-//         symbol,
-//         profile: profileResponse.data,
-//         metrics: metricResponse.data.metric,
-//         quote: quoteResponse.data
-//       };
-//     });
-
-//     const stockData = await Promise.all(stockDataPromises);
-//     return res.json(new ApiResponse(200, stockData, "Stock data fetched successfully"));
-//   } catch (error) {
-//     return res.status(500).json({ message: "Error fetching stocks" });
-//   }
-// });
-
-// export { getStockApiResponse };
-
-
-
-
-
 const FINNHUB_API_TOKEN = 'csnj8upr01qqapaib3d0csnj8upr01qqapaib3dg';
-// csnp331r01qkfk592tqgcsnp331r01qkfk592tr0
-// csnp451r01qkfk592u80csnp451r01qkfk592u8g
 const STOCK_SYMBOLS = ['AAPL', 'NVDA', 'MSFT', 'GOOGL'];
 const US_MAJOR_TICKERS = [
 //   'AAPL',  // Apple Inc.

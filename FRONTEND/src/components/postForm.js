@@ -26,7 +26,10 @@ const PostForm = ({setPostOpen}) => {
   }
 
     try {
-      const response = await axios.post(`https://equityelite.onrender.com/uploadPost`, formData, {
+      const response = await axios.post("http://localhost:8080/uploadPost", formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
       });
       console.log('Post uploaded:', response.data);
       setPostOpen(false);

@@ -124,10 +124,10 @@ passport.deserializeUser((user,done) => {
 
 app.get("/auth/google",passport.authenticate("google",{scope:["profile","email"]}));
 app.get("/auth/google/callback",passport.authenticate("google",{
-    successRedirect: "https://equityelite.vercel.app/home",
-    failureRedirect: "https://equityelite.vercel.app"
-    // successRedirect: "http://localhost:8000/home",
-    // failureRedirect: "http://localhost:8000"
+    // successRedirect: "https://equityelite.vercel.app/home",
+    // failureRedirect: "https://equityelite.vercel.app"
+    successRedirect: "http://localhost:8000/home",
+    failureRedirect: "http://localhost:8000"
 }));
 
 

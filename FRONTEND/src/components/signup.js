@@ -24,13 +24,15 @@ export function Signup() {
   }
 
   // connecting frontend to backend
-  const funcTocallAfterSubmit = (e) => {
+  const funcToCallAfterSubmit = async (e) => {
     e.preventDefault();
-    axios.post(`https://equityelite.onrender.com/signup`,{email,password,username})   //idhere server jis port ya url pe chal raha hai wo likhna hai
-    .then(result => {console.log(result)
+    try {
+      const result = await axios.post(`http://localhost:8080/signup`,{email,password,username})   //idhere server jis port ya url pe chal raha hai wo likhna hai
+      console.log(result.data);
       navigate('/login')
-    })
-    .catch(err => console.log(err))
+    } catch (err) {
+      console.log("Here is the error", err);
+    }
   }
   return (
     <div className={`absolute bg-white h-5/6 w-4/6 z-10 left-56 top-16  rounded-xl   flex felx-row overflow-hidden`}>
@@ -46,7 +48,7 @@ export function Signup() {
         </div>
       </div>
       <div className='p-8 bg-white/40 h-full w-1/2'>
-        <form onSubmit={funcTocallAfterSubmit}>
+        <form onSubmit={funcToCallAfterSubmit}>
           <div className='h-8 w-full text-center bg-transparent font-extrabold text-pink-700 text-4xl '>SignUp</div>
           
           <div className='mt-6 bg-transparent text-left font-mono font-semibold text-lg text-black'>Name</div>

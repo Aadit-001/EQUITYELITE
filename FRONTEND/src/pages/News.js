@@ -13,7 +13,7 @@ export default function News({setIsLoggedIn}) {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await axios.get(`https://equityelite.onrender.com/news`, {
+        const response = await axios.get(`http://localhost:8080/news`, {
           withCredentials: true, // Include credentials if needed
         });
         setNews(response.data.slice(0, 101)); // Correctly accessing response data
@@ -34,7 +34,7 @@ export default function News({setIsLoggedIn}) {
 
     const getUser = async()=>{
         try {
-            const res = await axios.get(`https://equityelite.onrender.com/login/success`,{withCredentials:true});
+            const res = await axios.get(`http://localhost:8080/login/success`,{withCredentials:true});
             console.log(res);
             // setuserdata(res.data.user);
             setIsLoggedIn(true);
