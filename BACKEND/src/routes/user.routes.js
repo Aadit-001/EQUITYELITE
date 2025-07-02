@@ -42,7 +42,6 @@ router.route("/uploadPost").post(
 
 
 router.route("/home").get(
-    verifyJWT,
     getPost
 )
 

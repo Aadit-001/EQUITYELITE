@@ -3,10 +3,10 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import { User } from './models/user.model.js'
 
-const app = express()
-
-
 import dotenv from 'dotenv'; 
+const app = express();
+
+
 dotenv.config();
 //cors use karte hai taki pata rahe konse frontend ke url se backend reply dega
 app.use(cors({
@@ -167,3 +167,4 @@ app.get("/logout",(req,res,next)=> {
 app.use("", userRouter)  //ye bass initail route hai , matlab ye ki jab iss route pe aa jayenge tab pura cotrol "userRouter ke file ke pass aa jayega kyu ki wo user ke related sara kaam hai waha, jaise login , register etc"
 
 export default app
+

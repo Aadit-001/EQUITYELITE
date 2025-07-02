@@ -1,5 +1,12 @@
 import { Card } from './card.js';
 // import { useEffect, useState } from 'react';
+import ORCL from '../assests/ORCL.png';
+import TSLA from '../assests/TSLA.png';
+import AAPL from '../assests/Apple.png';
+import MSFT from '../assests/MSFT.png';
+import NVDA from '../assests/NVDA.png';
+import GOOGL from '../assests/GOOG.png';
+
 
 export function HomePageStockSection() {
     const tempdata = [
@@ -9,6 +16,7 @@ export function HomePageStockSection() {
             "price": "₹9,500.00",
             "profit": "₹65.00",
             "red_green": true,
+            "image": AAPL
         },
         {
             "name": "Microsoft Corp.",
@@ -16,6 +24,7 @@ export function HomePageStockSection() {
             "price": "₹11,500.00",
             "profit": "₹56.00",
             "red_green": false,
+            "image": MSFT
         },
         {
             "name": "Tesla INC",
@@ -23,6 +32,7 @@ export function HomePageStockSection() {
             "price": " ₹8,000.00",
             "profit": "₹935.00",
             "red_green": true,
+            "image": TSLA
         },
         {
             "name": "Alphabet INC",
@@ -30,34 +40,38 @@ export function HomePageStockSection() {
             "price": " ₹14,000.00",
             "profit": "₹32.00",
             "red_green": false,
+            "image": GOOGL
         },
-        {
-            "name": "Tata consultancy",
-            "ticker": "TCS",
-            "price": " ₹3580.00",
-            "profit": "₹17.00",
-            "red_green": false,
-        },
+        // {
+        //     "name": "Tata consultancy",
+        //     "ticker": "TCS",
+        //     "price": " ₹3580.00",
+        //     "profit": "₹17.00",
+        //     "red_green": false,
+        // },
         {
             "name": "NVIDIA corp.",
             "ticker": "NVDA",
             "price": " ₹12,000.00",
             "profit": "₹400.00",
             "red_green": true,
+            "image": NVDA
         },
-        {
-            "name": "Meta INC",
-            "ticker": "META",
-            "price": " ₹7,500.00",
-            "profit": "₹97.00",
-            "red_green": true,
-        },
+        // },
+        // {
+        //     "name": "Meta INC",
+        //     "ticker": "META",
+        //     "price": " ₹7,500.00",
+        //     "profit": "₹97.00",
+        //     "red_green": true,
+        // },
         {
             "name": "Oracle",
             "ticker": "ORCL",
             "price": " ₹1,903.00",
             "profit": "₹41.00",
             "red_green": false,
+            "image": ORCL
         },
     ];
     // const [cardData, setCardData] = useState([]);
