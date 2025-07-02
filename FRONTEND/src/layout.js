@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { Route, Routes } from 'react-router-dom';
 
 // import { Navbar } from "./components/navbar";
-import Community from './pages/Community'
+// import Community from './pages/Community'
 import { Home } from './pages/Home'
 import Learn from './pages/Learn'
 import News from './pages/News'
@@ -33,7 +33,7 @@ export function Layout() {
                 <Route path='' element={<App />} />
                 <Route path='home' element={<Home setIsLoggedIn={setIsLoggedIn} setuserName={setuserName}/>} />
                 <Route path='stocks' element={<Stocks setIsLoggedIn={setIsLoggedIn}/>} />
-                <Route path='community' element={<Community />} />
+                {/* <Route path='community' element={<Community />} /> */}
                 <Route path='learn' element={<Learn setIsLoggedIn={setIsLoggedIn}/>} />
                 <Route path='news' element={<News setIsLoggedIn={setIsLoggedIn}/>} />
                 <Route path='login' element={<Login setuserName={setuserName} setIsLoggedIn={setIsLoggedIn} />} />
