@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { HomePageStockSection } from './components/homepagestocksection.js';
 import { FaChartLine, FaShieldAlt, FaRocket, FaLightbulb } from 'react-icons/fa';
-import './App.css';
 import hero from './assests/hero.png';
 
 function App() {
