@@ -30,62 +30,77 @@ function App() {
   return (
     <div className="min-h-screen ">
       {/* Hero Section */}
-      <div className="relative overflow-hidden h-screen">
-        {/* Background Gradient Overlay */}
-        {/* <div className="absolute inset-0 bg-gradient-to-br  from-black via-black to-purple-900/20"></div> */}
-        
-        {/* Content Container */}
-        <div className="relative -mt-10 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
-          {/* Left Side - Text Content */}
-          <div className="w-full lg:w-1/2 text-center lg:text-left">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-purple-600">
-                EQUITYELITE
-              </span>
-            </h1>
-            <p className="text-xl text-gray-300 mb-8 max-w-xl mx-auto lg:mx-0">
-              Your Ultimate Destination for Real-Time Market Insights and Advanced Trading Tools.
-              Make informed decisions with our comprehensive financial platform.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
-              <Link 
-                to="/signup" 
-                className="px-8 py-4 bg-gradient-to-r from-purple-600 to-purple-800 text-white font-semibold rounded-lg hover:opacity-90 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-purple-500/20"
-              >
-                Get Started Free
-              </Link>
-              <Link 
-                to="/login" 
-                className="px-8 py-4 bg-transparent border-2 border-purple-600 text-purple-300 font-semibold rounded-lg hover:bg-purple-900/30 transition-all duration-300"
-              >
-                Sign In
-              </Link>
-            </div>
-          </div>
-
-          {/* Right Side - Image */}
-          <div className="hidden lg:block absolute -right-10 top-1/2 -translate-y-1/2 w-full h-1/2 translate-x-1/3">
-            <div className="relative w-full h-full">
-              {/* Image with gradient overlay */}
-              <div className="absolute inset-0">
+      <div className="relative overflow-hidden min-h-screen flex flex-col">
+        <div className="flex-1 flex flex-col">
+          <div className="max-w-7xl mx-auto w-full mb-2 px-4 sm:px-6 lg:px-8 py-6 lg:py-12">
+            {/* Image for mobile and tablet - appears at the top */}
+            <div className="lg:hidden w-full max-w-md mx-auto mt-20">
+              <div className="relative w-full h-52 sm:h-64">
                 <img 
                   src={hero}
                   alt="Market Analytics"
-                  className="w-[70%] h-full object-cover "
+                  className="w-full h-full object-contain"
                 />
+                <div className="absolute -left-1/2 -top-1/2 w-96 h-96 bg-purple-900/20 rounded-full filter blur-3xl -z-10"></div>
+              </div>
+            </div>
+
+            {/* Content Container */}
+            <div className="flex flex-col lg:flex-row items-center mt-12 md:mt-12 lg:mt-36">
+              {/* Left Side - Text Content */}
+              <div className="w-full lg:w-1/2 text-center lg:text-left lg:pr-8">
+                <h1 className="text-5xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6">
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-purple-600">
+                    EQUITYELITE
+                  </span>
+                </h1>
+                <p className="text-xl sm:text-xl md:text-2xl lg:text-xl text-gray-300 mb-8 max-w-xl mx-auto lg:mx-0">
+                  Your Ultimate Destination for Real-Time Market Insights and Advanced Trading Tools.
+                  Make informed decisions with our comprehensive financial platform.
+                </p>
+                
+                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center lg:justify-start">
+                  <Link 
+                    to="/signup" 
+                    className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-600 to-purple-800 text-white font-semibold rounded-lg hover:opacity-90 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-purple-500/20 text-sm sm:text-base"
+                  >
+                    Get Started Free
+                  </Link>
+                  <Link 
+                    to="/login" 
+                    className="px-6 sm:px-8 py-3 sm:py-4 bg-transparent border-2 border-purple-600 text-purple-300 font-semibold rounded-lg hover:bg-purple-900/30 transition-all duration-300 text-sm sm:text-base"
+                  >
+                    Sign In
+                  </Link>
+                </div>
+              </div>
+
+          {/* Right Side - Image */}
+          <div className="hidden lg:block absolute right-44 top-1/2 -translate-y-1/2 w-full h-1/2 translate-x-1/2">
+            <div className="relative w-full h-full">
+              {/* Image with gradient overlay */}
+              <div className="absolute inset-0 left-0 right-4 -top-24 bottom-0">
+                  <img 
+                    src={hero}
+                    alt="Market Analytics"
+                  className="w-[60%] h-full object-cover "
+                  />
+                {/* </div> */}
                 {/* Gradient overlay to blend with UI */}
                 {/* <div className="absolute inset-0 bg-gradient-to-l from-gray-900 via-gray-900/80 to-transparent"></div> */}
               </div>
               
               {/* Glow effect */}
-              <div className="absolute -left-1/2 -top-1/2 w-96 h-96  bg-purple-900/20 rounded-full filter blur-3xl"></div>
+              <div className="absolute -right-1/2 -left-1/2 -top-1/2 w-96 h-96  bg-purple-900/20 rounded-full filter blur-3xl"></div>
             </div>
           </div>
+
+          {/* Stock Section - At the bottom */}
         </div>
-        <div className="mx-32">
-          <HomePageStockSection/>
         </div>
+          <div className="w-full mt-0 mx-0 lg:mx-24">
+            <HomePageStockSection/>
+          </div>
       </div>
 
       {/* Features Section */}
@@ -130,6 +145,7 @@ function App() {
           </Link>
         </div>
       </div> */}
+    </div>
     </div>
     
   );

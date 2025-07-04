@@ -93,7 +93,8 @@ export function HomePageStockSection() {
     // }); // Empty dependency array means this effect runs once on mount
 
     return (
-        <div className="  w-screen h-44 absolute bottom-0 mt-16 overflow-y-scroll no-scrollbar flex flex-row">
+        <div className="w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-6 overflow-x-auto no-scrollbar">
+            <div className="flex space-x-4 lg:space-x-6 w-max min-w-full">
             {/* {cardData.length > 0 ? (
                 cardData.map((card) => (
                     <Card key={card.ticker} val={card} />
@@ -105,9 +106,12 @@ export function HomePageStockSection() {
             )} */}
             {
                 tempdata.map((card) => (
-                    <Card val={card} />
+                    <div key={card.ticker} className="w-40 sm:w-48 flex-shrink-0">
+                        <Card val={card} />
+                    </div>
                 ))
             }
+            </div>
         </div>
     );
 }

@@ -6,7 +6,7 @@ import { FaGoogle, FaUser, FaEnvelope, FaLock, FaArrowRight } from 'react-icons/
 export function Signup() {
   // Configure axios defaults
   axios.defaults.withCredentials = true;
-  axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080';
+  axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL || 'https://equityelite-1.onrender.com';
   
   // State management
   const [formData, setFormData] = useState({

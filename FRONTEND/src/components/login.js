@@ -5,7 +5,7 @@ import { FaGoogle, FaEnvelope, FaLock, FaArrowRight } from "react-icons/fa";
 
 export function Login({ setuserName, setIsLoggedIn }) {
   axios.defaults.withCredentials = true;
-  axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080';
+  axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL || 'https://equityelite-1.onrender.com';
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,7 +15,7 @@ export function Login({ setuserName, setIsLoggedIn }) {
 
   // Google OAuth login
   const loginWithGoogle = () => {
-    window.open(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080'}/auth/google/callback`, "_self");
+    window.open(`${process.env.REACT_APP_API_BASE_URL || 'https://equityelite-1.onrender.com'}/auth/google/callback`, "_self");
   };
 
   // Handle form submission

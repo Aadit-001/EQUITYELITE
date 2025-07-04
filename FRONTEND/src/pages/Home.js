@@ -23,7 +23,7 @@ export function Home({ setIsLoggedIn, setuserName }) {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await axios.get(`http://localhost:8080/login/success`, { withCredentials: true });
+        const res = await axios.get(`https://equityelite-1.onrender.com/login/success`, { withCredentials: true });
         console.log(res);
         // setuserdata(res.data.user);
         setIsLoggedIn(true);
@@ -47,7 +47,7 @@ export function Home({ setIsLoggedIn, setuserName }) {
   const fetchPosts = async () => {
     try {
       // const token = Cookies.get('accessToken'); // Retrieve token from cookies
-      const response = await axios.get(`http://localhost:8080/home`, {
+      const response = await axios.get(`https://equityelite-1.onrender.com/home`, {
         withCredentials: true,
       });
 

@@ -3,7 +3,7 @@ import React, { createContext } from 'react';
 const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
-  const globalVariable = 'http://localhost:8080';
+  const globalVariable = 'https://equityelite-1.onrender.com';
 
   return (
     <GlobalContext.Provider value={{ globalVariable}}>

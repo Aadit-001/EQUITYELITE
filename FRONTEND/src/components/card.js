@@ -3,19 +3,19 @@ export function Card({ val }) {
   const profitValue = parseFloat(val.profit);
   
   return (
-    <div className="relative h-36 group bg-transparent rounded-xl p-4 w-48 mr-6 mt-5 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20 hover:-translate-y-1 border border-gray-700/50 overflow-hidden">
+    <div className="relative h-36 group bg-transparent rounded-xl p-3 sm:p-4 w-full sm:w-48 sm:mr-6 mt-3 sm:mt-5 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20 hover:-translate-y-1 border border-gray-700/50 overflow-hidden">
       {/* Glow effect on hover */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       
       {/* Stock header */}
       <div className="flex items-start justify-between mb-3 relative z-10">
         <div className="flex items-center space-x-3">
-          <div className="h-12 w-12 rounded-full bg-gray-800/80 flex items-center justify-center overflow-hidden border border-gray-700/50">
+          <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-gray-800/80 flex-shrink-0 flex items-center justify-center overflow-hidden border border-gray-700/50">
             {val.image ? (
               <img 
                 src={val.image} 
                 alt={`${val.ticker} logo`} 
-                className="h-16 w-16 object-contain"
+                className="h-12 w-12 sm:h-16 sm:w-16 object-contain"
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.src = `https://via.placeholder.com/100/1a1a2e/ffffff?text=${val.ticker.charAt(0)}`;
@@ -27,8 +27,8 @@ export function Card({ val }) {
               </div>
             )}
           </div>
-          <div>
-            <div className="font-bold text-lg text-white">{val.ticker}</div>
+          <div className="min-w-0">
+            <div className="font-bold text-base sm:text-lg text-white truncate">{val.ticker}</div>
             <div className="text-xs text-gray-400 line-clamp-1">{val.name}</div>
           </div>
         </div>
@@ -42,9 +42,9 @@ export function Card({ val }) {
       </div>
       
       {/* Stock price */}
-      <div className="relative z-10">
-        <div className="text-2xl font-bold text-white">{val.price}</div>
-        <div className={`text-sm ${isPositive ? 'text-green-400' : 'text-red-400'} flex items-center`}>
+      <div className="relative z-10 mt-2 sm:mt-0">
+        <div className="text-xl sm:text-2xl font-bold text-white">{val.price}</div>
+        <div className={`text-xs sm:text-sm ${isPositive ? 'text-green-400' : 'text-red-400'} flex items-center`}>
           <span className="mr-1">{isPositive ? '↑' : '↓'}</span>
           <span>{val.profit}</span>
         </div>

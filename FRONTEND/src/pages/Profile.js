@@ -28,7 +28,7 @@ function Profile({ setIsLoggedIn }) {
       setError(null);
       
       try {
-        const response = await axios.get(`http://localhost:8080/profile`, {
+        const response = await axios.get(`https://equityelite-1.onrender.com/profile`, {
           withCredentials: true,
         });
         

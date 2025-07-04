@@ -67,7 +67,7 @@ function Stocks({ setIsLoggedIn }) {
 
     const getUser = async () => {
         try {
-            const res = await axios.get(`http://localhost:8080/login/success`, { withCredentials: true });
+            const res = await axios.get(`https://equityelite-1.onrender.com/login/success`, { withCredentials: true });
             console.log(res);
             // setuserdata(res.data.user);
             setIsLoggedIn(true);
@@ -123,7 +123,7 @@ function Stocks({ setIsLoggedIn }) {
     useEffect(() => {
         const fetchStockData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/stocks`, { withCredentials: true });
+                const response = await axios.get(`https://equityelite-1.onrender.com/stocks`, { withCredentials: true });
                 // setStocksData(response.data.data);
                 setStocksData(response.data.data.stockData); 
                 setUsMajorData(response.data.data.usMajorData); 
