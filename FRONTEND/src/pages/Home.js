@@ -13,6 +13,7 @@ export function Home({ setIsLoggedIn, setuserName }) {
   axios.defaults.withCredentials = true; ////// ye kiya tabhi wo post kar paya mai ,google se login hone ke baad, kyu ki ye karne ke baad hi cookie , token rew.user mai aata hai
   // const [userdata, setuserdata] = useState({});
   const [posts, setPosts] = useState([]);
+  const url = process.env.REACT_APP_API_BASE_URL;
   //isme agar user data mila tabhi hi user loggedin hai warna nhi hai
 
   // const globalVariable = useContext(GlobalContext);
@@ -23,7 +24,7 @@ export function Home({ setIsLoggedIn, setuserName }) {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await axios.get(`https://equityelite-1.onrender.com/login/success`, { withCredentials: true });
+        const res = await axios.get(`${url}/login/success`, { withCredentials: true });
         console.log(res);
         // setuserdata(res.data.user);
         setIsLoggedIn(true);
@@ -47,7 +48,7 @@ export function Home({ setIsLoggedIn, setuserName }) {
   const fetchPosts = async () => {
     try {
       // const token = Cookies.get('accessToken'); // Retrieve token from cookies
-      const response = await axios.get(`https://equityelite-1.onrender.com/home`, {
+      const response = await axios.get(`${url}/home`, {
         withCredentials: true,
       });
 
@@ -97,19 +98,33 @@ export function Home({ setIsLoggedIn, setuserName }) {
 
   return (
     <>
-      <div className=' bg-black flex bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/40 via-black to-black '>
-        {postOpen && <PostForm setPostOpen={setPostOpen} /> } 
-        <div className='w-1/4 h-full'></div>
-        <div className='w-2/4 h-auto mt-14'>
-          {
-            posts.map((post) => (
-              <StocksPage key={post._id} post={post} />
-            ))
-          }
+      <div className='min-h-screen bg-black bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/20 via-black to-black'>
+        {postOpen && <PostForm setPostOpen={setPostOpen} />} 
+        <div className=' container mx-auto px-4 sm:px-6 lg:px-8 py-4'>
+          <div className='flex mt-10 lg:-mt-2 flex-col lg:flex-row'>
+            {/* Left sidebar - hidden on mobile, 1/4 width on larger screens */}
+            <div className='hidden lg:block lg:w-1/4'></div>
+            
+            {/* Main content - full width on mobile, 1/2 on larger screens */}
+            <div className='w-full lg:w-2/4 lg:mt-14'>
+              {posts.map((post) => (
+                <StocksPage key={post._id} post={post} />
+              ))}
+            </div>
+            
+            {/* Right sidebar - hidden on mobile, 1/4 width on larger screens */}
+            <div className='hidden lg:block lg:w-1/4 lg:pl-10'></div>
+          </div>
         </div>
-        <div className='w-1/4 pl-10 h-full'></div>
-        <button onClick={PostTabStatus} className=" w-32 h-12 fixed bottom-4 right-52 rounded-full text-white bg-violet-800 hover:bg-violet-600 transition-colors flex items-center justify-center text-2xl font-bold shadow-lg">
-            + POST
+        
+        {/* Floating action button - responsive positioning */}
+        <button 
+          onClick={PostTabStatus} 
+          className="fixed bottom-6 right-6 lg:right-52 w-16 h-16 lg:w-32 lg:h-12 rounded-full text-white bg-violet-800 hover:bg-violet-600 transition-colors flex items-center justify-center text-2xl font-bold shadow-lg z-50"
+          aria-label="Create new post"
+        >
+          <span className="lg:hidden">+</span>
+          <span className="hidden lg:inline">+ POST</span>
         </button>
       </div>
     </>

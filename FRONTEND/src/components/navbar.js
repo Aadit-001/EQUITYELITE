@@ -49,7 +49,7 @@ export function Navbar({ name, isLoggedIn }) {
     }, [location]);
 
     return (
-        <nav className="h-16 w-full bg-black/90 backdrop-blur-md fixed z-40 border-b border-purple-900/30">
+        <nav className=" h-16 w-full bg-black/90 backdrop-blur-md fixed z-40 border-b border-purple-900/30">
             <div className="container mx-auto h-full px-4 md:px-6 flex items-center justify-between">
                 {/* Logo */}
                 <Link 
@@ -109,7 +109,7 @@ export function Navbar({ name, isLoggedIn }) {
 
                 {/* Mobile Menu Overlay */}
                 <div 
-                    className={`fixed inset-0 bg-black/80 z-30 transform transition-transform duration-300 ease-in-out ${
+                    className={`fixed inset-0 h-screen bg-black/80 z-30 transform transition-transform duration-300 ease-in-out ${
                         isMenuOpen ? 'translate-x-0' : 'translate-x-full'
                     } md:hidden`}
                     onClick={() => setIsMenuOpen(false)}
@@ -117,7 +117,7 @@ export function Navbar({ name, isLoggedIn }) {
 
                 {/* Mobile Menu */}
                 <div 
-                    className={`fixed top-0 right-0 h-screen w-64 bg-gray-900 z-40 transform transition-transform duration-300 ease-in-out ${
+                    className={`fixed top-0 right-0 h-screen w-64 bg-black z-40 transform transition-transform duration-300 ease-in-out ${
                         isMenuOpen ? 'translate-x-0' : 'translate-x-full'
                     } md:hidden flex flex-col`}
                 >

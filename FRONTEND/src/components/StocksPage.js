@@ -10,7 +10,7 @@ export default function TweetCard({ post }) {
   };
 
   return (
-    <div className="max-w-2xl w-full mx-auto bg-black border-b border-gray-800 px-4 py-3 hover:bg-gray-900/50 transition-colors duration-200">
+    <div className="max-w-2xl w-full mx-auto bg-black/70 backdrop-blur-lg border-b border-gray-800 px-4 py-3 hover:bg-gray-900/50 transition-colors duration-200">
       {/* Header */}
       <div className="flex items-start space-x-3">
         {/* Avatar */}

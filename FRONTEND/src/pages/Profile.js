@@ -12,6 +12,7 @@ function Profile({ setIsLoggedIn }) {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const url = process.env.REACT_APP_API_BASE_URL; 
 
   // Handle logout redirection
   useEffect(() => {
@@ -28,7 +29,7 @@ function Profile({ setIsLoggedIn }) {
       setError(null);
       
       try {
-        const response = await axios.get(`https://equityelite-1.onrender.com/profile`, {
+        const response = await axios.get(`${url}/profile`, {
           withCredentials: true,
         });
         

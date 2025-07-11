@@ -59,6 +59,7 @@ import StocksCard2 from '../components/StocksCard2';
 
 function Stocks({ setIsLoggedIn }) {
     const [stockData, setStockData] = useState({});
+    const url = process.env.REACT_APP_API_BASE_URL; 
     // const [globalVariable,setGlobalVariable] = useContext(GlobalContext);
 
     // const [userdata, setuserdata] = useState({});
@@ -67,7 +68,7 @@ function Stocks({ setIsLoggedIn }) {
 
     const getUser = async () => {
         try {
-            const res = await axios.get(`https://equityelite-1.onrender.com/login/success`, { withCredentials: true });
+            const res = await axios.get(`${url}/login/success`, { withCredentials: true });
             console.log(res);
             // setuserdata(res.data.user);
             setIsLoggedIn(true);
@@ -123,7 +124,7 @@ function Stocks({ setIsLoggedIn }) {
     useEffect(() => {
         const fetchStockData = async () => {
             try {
-                const response = await axios.get(`https://equityelite-1.onrender.com/stocks`, { withCredentials: true });
+                const response = await axios.get(`${url}/stocks`, { withCredentials: true });
                 // setStocksData(response.data.data);
                 setStocksData(response.data.data.stockData); 
                 setUsMajorData(response.data.data.usMajorData); 
@@ -137,57 +138,117 @@ function Stocks({ setIsLoggedIn }) {
     }, []);
 
     localStorage.setItem("TCS","https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/TCS.png");
+    
+    // Calculate market stats for the header
+    const marketStats = [
+        { label: 'NIFTY 50', value: '22,500.30', change: '+1.25%', isPositive: true },
+        { label: 'SENSEX', value: '74,200.50', change: '+0.85%', isPositive: true },
+        { label: 'NASDAQ', value: '16,800.40', change: '-0.35%', isPositive: false },
+    ];
+
     return (
-        // <div className="App">
-        //     <div className='text-white'>Stock Data</div>
-        //     <div className='text-white'> {stockData.map((data, index) => ( <div key={index}> <strong>Symbol:</strong> {data.s}, <strong>Price:</strong> {data.p}, <strong>Volume:</strong> {data.v}, <strong>Conditions:</strong> {data.c.join(', ')}, <strong>Timestamp:</strong> {new Date(data.t).toLocaleString()} </div> ))} </div>
-        // </div>
-
-        //this works
-        // <div className="text-white pt-20"> 
-        // <div className='text-white'>Stock Data</div> 
-        // <div className='text-white'><strong>Symbol:</strong> {stockData.symbol}</div> 
-        // <div className='text-white'><strong>Price:</strong> {stockData.price}</div> 
-        // <div className='text-white'><strong>Volume:</strong> {stockData.volume}</div> 
-        // <div className='text-white'><strong>Conditions:</strong> {stockData.conditions ? stockData.conditions.join(', ') : ''}</div> 
-        // <div className='text-white'><strong>Timestamp:</strong> {stockData.timestamp}</div> 
-        // </div>
-
-
-        //this also works at night 
-        // <div className="App"> <h1 className="text-white">Stock Data</h1> {Object.keys(stockData).map((symbol, index) => ( <div key={index} className="text-white"> <div className="text-white"><strong>Symbol:</strong> {symbol}</div> <div className="text-white"><strong>Price:</strong> {stockData[symbol].price}</div> <div className="text-white"><strong>Volume:</strong> {stockData[symbol].volume}</div> <div className="text-white"><strong>Conditions:</strong> {stockData[symbol].conditions ? stockData[symbol].conditions.join(', ') : ''}</div> <div className="text-white"><strong>Timestamp:</strong> {stockData[symbol].timestamp}</div> </div> ))} </div>
-
-
-
-        <div className='pb-40 pl-52  bg-black bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/40 via-black to-black pr-52 pt-20'>
-            <div className='text-white font-extrabold text-3xl'>
-                MARKET LEADERS
+        <div className='pt-16 min-h-screen bg-black bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/20 via-black to-black text-white'>
+            {/* Market Stats Header - Responsive */}
+            <div className='bg-black/50 backdrop-blur-sm border-b border-purple-900/30 w-full'>
+                <div className='relative overflow-hidden'>
+                    <div className='px-2 py-2 sm:py-3 overflow-x-auto whitespace-nowrap hide-scrollbar'>
+                        <div className='inline-flex items-center space-x-2 sm:space-x-4 px-2 sm:px-4'>
+                            {marketStats.map((stat, index) => (
+                                <div key={index} className='inline-flex items-center space-x-2 sm:space-x-3 bg-black/40 px-3 py-1.5 sm:py-2 rounded-lg border border-purple-900/30 min-w-[140px] sm:min-w-[160px]'>
+                                    <span className='text-purple-300 text-xs sm:text-sm font-medium whitespace-nowrap'>{stat.label}</span>
+                                    <span className='font-semibold text-white text-sm sm:text-base whitespace-nowrap'>{stat.value}</span>
+                                    <span className={`text-[10px] sm:text-xs px-1.5 py-0.5 rounded-full font-medium ${stat.isPositive ? 'bg-green-900/30 text-green-400' : 'bg-red-900/30 text-red-400'}`}>
+                                        {stat.change}
+                                    </span>
+                                </div>
+                            ))}
+                            {/* Add a bit of extra space on the right for better scrolling */}
+                            <div className='inline-block w-4 sm:w-8 h-1'></div>
+                        </div>
+                    </div>
+                    {/* Gradient fade effect on the right side for mobile */}
+                    <div className='absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-black/80 to-transparent pointer-events-none'></div>
+                </div>
             </div>
-            <div className='pt-10 pb-10 flex justify-between w-full h-76'>
-                {stocksData.map((stock, index) => (
-                    // localStorage.setItem(stock.symbol,stock.profile.logo)
-                    <StocksCard key={index} stock={stock} />
-                ))}
 
-            </div>
-            <div className='mt-10 text-white font-extrabold text-3xl'>
-                TOP FOREIGN STOCKS
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 pl-4 gap-4 pt-10 pb-10 w-full h-auto"> 
-                {usMajorData.map((stock, index) => ( <StocksCard2 key={index + stocksData.length} stock={stock} /> ))}
-            </div>
-            {/* <div className='mt-10 text-white font-extrabold text-3xl'>
-                TOP INDIAN STOCKS
-            </div>
-            <div className='pt-10 pb-10  bg-green-500 flex justify-between w-full h-96'>
-            {additionalData.map((stock, index) => ( <StocksCard2 key={index + stocksData.length + usMajorData.length} stock={stock} /> ))}
-            </div>  */}
-            {/* <div className='mt-10 text-white font-extrabold text-3xl'>
-                OTHER STOCKS
-            </div>
-            <div className='pt-10 pb-10  bg-green-500 flex justify-between w-full h-96'>
+            <div className='container mx-auto px-4 sm:px-6 lg:px-8 py-8'>
+                {/* Page Header */}
+                <div className='mb-10 text-center lg:text-left'>
+                    <h1 className='text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400 mb-2'>
+                        Market Overview
+                    </h1>
+                    <p className='text-purple-200/80 text-sm'>Real-time stock market data and analysis</p>
+                    <div className='mt-4 h-1 w-24 bg-gradient-to-r from-purple-600 to-blue-500 rounded-full mx-auto lg:mx-0'></div>
+                </div>
 
-            </div> */}
+                {/* Market Leaders Section */}
+                <section className='mb-16'>
+                    <div className='flex flex-row items-center justify-between mb-8 gap-4'>
+                        <div className='flex items-center space-x-3'>
+                            <h2 className='text-xl font-bold text-white'>
+                                Market Leaders 
+                            </h2>
+                            <span className='text-xs bg-purple-900/50 text-purple-300 px-2 py-1 rounded-full border border-purple-700/50'>LIVE</span>
+                        </div>
+                        <span className='text-sm text-purple-300 hover:text-purple-200 cursor-pointer transition-colors flex items-center'>
+                            View All <span className='ml-1'>→</span>
+                        </span>
+                    </div>
+                    
+                    <div className='grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 md:gap-6'>
+                        {stocksData.map((stock, index) => (
+                            <div key={index} className='transform transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-purple-900/20'>
+                                <StocksCard stock={stock} />
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* Top Foreign Stocks Section */}
+                <section>
+                    <div className='flex flex-row items-center justify-between mb-8 gap-4'>
+                        <h2 className='text-xl font-bold text-white'>
+                            Top Foreign Stocks
+                        </h2>
+                        <span className='text-sm text-purple-300 hover:text-purple-200 cursor-pointer transition-colors flex items-center'>
+                            View All <span className='ml-1'>→</span>
+                        </span>
+                    </div>
+                    
+                    <div className='grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 md:gap-6'>
+                        {usMajorData.map((stock, index) => (
+                            <div key={index + stocksData.length} className='transform transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-purple-900/20'>
+                                <StocksCard2 stock={stock} />
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            </div>
+            
+            {/* Floating Action Button */}
+            {/* <button className='fixed bottom-8 right-8 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white p-4 rounded-full shadow-xl transform transition-all duration-300 hover:scale-110 hover:shadow-purple-500/30'>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+            </button> */}
+            
+            {/* Custom Scrollbar Styling */}
+            <style jsx>{`
+                .hide-scrollbar::-webkit-scrollbar {
+                    height: 4px;
+                }
+                .hide-scrollbar::-webkit-scrollbar-track {
+                    background: rgba(255, 255, 255, 0.05);
+                    border-radius: 4px;
+                }
+                .hide-scrollbar::-webkit-scrollbar-thumb {
+                    background: rgba(255, 255, 255, 0.1);
+                    border-radius: 4px;
+                }
+                .hide-scrollbar::-webkit-scrollbar-thumb:hover {
+                    background: rgba(255, 255, 255, 0.2);
+                }
+            `}</style>
         </div>
     );
 };
