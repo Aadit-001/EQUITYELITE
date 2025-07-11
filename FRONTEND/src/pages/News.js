@@ -7,7 +7,7 @@ import LodingPage from "./LodingPage.js";
 
 export default function News({setIsLoggedIn}) {
   axios.defaults.withCredentials = true; 
-  const url = process.env.REACT_APP_API_BASE_URL;
+  const url = 'https://equityelite-1.onrender.com';
   const [news, setNews] = useState([]);
   // const [globalVariable,setGlobalVariable] = useContext(GlobalContext);
 

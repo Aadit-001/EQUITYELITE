@@ -13,7 +13,8 @@ export function Home({ setIsLoggedIn, setuserName }) {
   axios.defaults.withCredentials = true; ////// ye kiya tabhi wo post kar paya mai ,google se login hone ke baad, kyu ki ye karne ke baad hi cookie , token rew.user mai aata hai
   // const [userdata, setuserdata] = useState({});
   const [posts, setPosts] = useState([]);
-  const url = process.env.REACT_APP_API_BASE_URL;
+  // const url = process.env.REACT_APP_API_BASE_URL;
+  const url = 'https://equityelite-1.onrender.com';
   //isme agar user data mila tabhi hi user loggedin hai warna nhi hai
 
   // const globalVariable = useContext(GlobalContext);

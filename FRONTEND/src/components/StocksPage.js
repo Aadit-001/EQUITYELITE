@@ -15,7 +15,7 @@ export default function TweetCard({ post }) {
       <div className="flex items-start space-x-3">
         {/* Avatar */}
         <div className="flex-shrink-0">
-          <div className="h-12 w-12 rounded-full bg-purple-600 text-white text-xl font-bold flex items-center justify-center cursor-pointer">
+          <div className="h-12 w-12 rounded-full bg-gray-400 text-black text-xl font-bold flex items-center justify-center cursor-pointer">
             {post.owner?.username?.charAt(0).toUpperCase() || 'U'}
           </div>
         </div>
@@ -23,9 +23,9 @@ export default function TweetCard({ post }) {
         {/* Content */}
         <div className="flex-1 min-w-0">
           {/* User info and timestamp */}
-          <div className="flex items-center space-x-1">
+          <div className="flex items-center space-x-1 mt-1">
             <span className="font-bold text-white text-base">{post.owner?.username || 'User'}</span>
-            <span className="text-gray-500 text-sm">@{post.owner?.username?.toLowerCase().replace(/\s+/g, '') || 'user'}</span>
+            {/* <span className="text-gray-500 text-sm">@{post.owner?.username?.toLowerCase().replace(/\s+/g, '') || 'user'}</span> */}
             <span className="text-gray-500">·</span>
             <span className="text-gray-500 text-sm">{formatTimeAgo(post.createdAt || new Date())}</span>
             {/* <button className="ml-auto text-gray-500 hover:text-purple-500 p-1 rounded-full hover:bg-purple-500/10">
@@ -35,7 +35,8 @@ export default function TweetCard({ post }) {
           
           {/* Post content */}
           <div className="mt-1 mb-2">
-            <h3 className="text-white text-base font-medium mb-2">{post.title}</h3>
+            <div className="text-gray-500 text-sm -mt-2 mb-2">@{post.owner?.username?.toLowerCase().replace(/\s+/g, '') || 'user'}</div>
+            <h3 className="text-white text-lg font-bold mb-1">{post.title}</h3>
             <p className="text-gray-300 text-base leading-snug">
               {post.description}
             </p>

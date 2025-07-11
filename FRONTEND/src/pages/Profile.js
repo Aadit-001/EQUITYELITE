@@ -12,7 +12,7 @@ function Profile({ setIsLoggedIn }) {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const url = process.env.REACT_APP_API_BASE_URL; 
+  const url = 'https://equityelite-1.onrender.com'; 
 
   // Handle logout redirection
   useEffect(() => {

@@ -32,7 +32,7 @@ export function Login({ setuserName, setIsLoggedIn }) {
     }
 
     try {
-      const result = await axios.post(`/login`, { email, password }, {
+      const result = await axios.post(`https://equityelite-1.onrender.com/login`, { email, password }, {
         withCredentials: true,
         headers: { 'Content-Type': 'application/json' }
       });
@@ -62,7 +62,7 @@ export function Login({ setuserName, setIsLoggedIn }) {
     <div className="min-h-screen bg-black flex items-center justify-center p-4">
       <div className="w-full max-w-6xl mt-10 bg-gray-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
         {/* Left Side - Welcome Section */}
-        <div className="w-full md:w-1/2 bg-gradient-to-br from-purple-900 to-gray-900 p-8 flex flex-col justify-center items-center text-center text-white">
+        <div className="hidden lg:flex w-full md:w-1/2 bg-gradient-to-br from-purple-900 to-gray-900 p-8  flex-col justify-center items-center text-center text-white">
           <div className="mb-8">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Welcome Back</h1>
             <h2 className="text-2xl md:text-3xl font-semibold text-purple-300 mb-8">To EquityElite</h2>
@@ -169,6 +169,12 @@ export function Login({ setuserName, setIsLoggedIn }) {
                     </>
                   )}
                 </button>
+                <p className="text-gray-400 text-sm mt-2">
+              Don't have an account?{' '}
+              <Link to="/signup" className="text-purple-400 hover:text-purple-300 font-medium transition-colors">
+                Sign up here
+              </Link>
+            </p>
               </div>
             </form>
 

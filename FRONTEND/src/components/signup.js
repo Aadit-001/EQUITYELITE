@@ -63,7 +63,7 @@ export function Signup() {
 
     try {
       const { confirmPassword, ...signupData } = formData;
-      const result = await axios.post('/signup', signupData, {
+      const result = await axios.post('https://equityelite-1.onrender.com/signup', signupData, {
         withCredentials: true,
         headers: { 'Content-Type': 'application/json' }
       });
@@ -90,7 +90,7 @@ export function Signup() {
     <div className="min-h-screen bg-black flex items-center justify-center p-4 overflow-y-auto">
       <div className="w-full max-w-6xl mt-10 bg-gray-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
         {/* Left Side - Welcome Section */}
-        <div className="w-full md:w-1/2 bg-gradient-to-br from-purple-900 to-gray-900 p-8 flex flex-col justify-center items-center text-center text-white">
+        <div className="hidden w-full md:w-1/2 bg-gradient-to-br from-purple-900 to-gray-900 p-8 lg:flex flex-col justify-center items-center text-center text-white">
           <div className="mb-8">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Join EquityElite</h1>
             <h2 className="text-2xl md:text-3xl font-semibold text-purple-300 mb-8">Start Your Journey</h2>
@@ -248,6 +248,12 @@ export function Signup() {
                     </>
                   )}
                 </button>
+                <p className="text-gray-400 text-sm mt-2">
+              Already have an account?{' '}
+              <Link to="/login" className="text-purple-400 hover:text-purple-300 font-medium transition-colors">
+                Login here
+              </Link>
+            </p>
               </div>
             </form>
 

@@ -9,7 +9,7 @@ const PostForm = ({ setPostOpen }) => {
   const [filePreview, setFilePreview] = useState();
   const [isLoading, setIsLoading] = useState(false);
   // const [globalVariable,setGlobalVariable] = useContext(GlobalContext);
-  const url = process.env.REACT_APP_API_BASE_URL;
+  // const url = process.env.REACT_APP_API_BASE_URL;
 
 
   const handleFileChange = (event) => {
@@ -29,7 +29,7 @@ const PostForm = ({ setPostOpen }) => {
   }
 
     try {
-      const response = await axios.post(`${url}/uploadPost`, formData, {
+      const response = await axios.post(`https://equityelite-1.onrender.com/uploadPost`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

@@ -6,7 +6,7 @@ import { FaChartLine, FaShieldAlt, FaRocket, FaLightbulb } from 'react-icons/fa'
 
 function Learn({setIsLoggedIn}) {
   axios.defaults.withCredentials = true; 
-  const url = process.env.REACT_APP_API_BASE_URL; 
+  const url = 'https://equityelite-1.onrender.com'; 
   // const [globalVariable,setGlobalVariable] = useContext(GlobalContext);
   // const [userdata,setuserdata] = useState({});
     //isme agar user data mila tabhi hi user loggedin hai warna nhi hai
